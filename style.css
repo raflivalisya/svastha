@@ -17,19 +17,59 @@ body {
 }
 
 /* NAVBAR */
+/* NAVBAR */
 .navbar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.4rem 7%; background-color: rgba(1, 1, 1, 0.9);
-  border-bottom: 1px solid #333; position: fixed;
-  top: 0; left: 0; right: 0; z-index: 9999;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding: 1rem 7%; /* Padding standar laptop */
+  background-color: rgba(1, 1, 1, 0.9); /* Latar belakang hitam transparan */
+  border-bottom: 1px solid #333; 
+  position: fixed;
+  top: 0; left: 0; right: 0; 
+  z-index: 9999;
 }
-.navbar-logo { font-size: 2rem; font-weight: 700; color: #fff; font-style: italic; }
-.navbar-logo span { color: var(--primary); }
-.navbar-nav a { color: #fff; font-size: 1.1rem; margin: 0 1rem; }
-.navbar-nav a:hover { color: var(--primary); }
-.navbar-extra a { color: #fff; margin: 0 0.5rem; position: relative; }
-.navbar-extra a:hover { color: var(--primary); }
-#hamburger-menu { display: none; }
+
+.navbar-logo { 
+  font-size: 2rem; 
+  font-weight: 700; 
+  color: #fff; 
+  font-style: italic; 
+}
+
+.navbar-logo span { 
+  color: var(--primary); 
+}
+
+.navbar-nav a { 
+  color: #fff; 
+  font-size: 1.1rem; 
+  margin: 0 1rem; 
+  display: inline-block;
+}
+
+.navbar-nav a:hover { 
+  color: var(--primary); 
+}
+
+.navbar-extra {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-extra a { 
+  color: #fff; 
+  margin: 0 0.5rem; 
+  position: relative; 
+}
+
+.navbar-extra a:hover { 
+  color: var(--primary); 
+}
+
+#hamburger-menu { 
+  display: none; 
+}
 
 /* Quantity Badge */
 .quantity-badge {
@@ -159,14 +199,59 @@ body {
 
 
 /* Media Query */
+/* Media Query (Tampilan HP) */
 @media (max-width: 768px) {
-  #hamburger-menu { display: inline-block; }
-  .navbar .navbar-nav {
-    position: absolute; top: 100%; right: -100%;
-    background-color: #fff; width: 30rem; height: 100vh;
-    transition: 0.3s; display: flex; flex-direction: column; padding: 2rem;
+  /* Munculkan tombol burger menu */
+  #hamburger-menu { 
+      display: inline-block; 
+      margin-left: 10px; /* Beri jarak sedikit dari keranjang */
   }
-  .navbar .navbar-nav.active { right: 0; }
-  .navbar .navbar-nav a { color: #010101; display: block; margin: 1.5rem; font-size: 2rem; }
-  .shopping-cart { width: 100%; }
+
+  /* Atur padding navbar biar lebih lega di HP */
+  .navbar {
+      padding: 1rem 4%; /* Padding dikurangi dari 7% jadi 4% */
+  }
+
+  /* Kecilkan Logo biar ikon di kanan tidak terdorong */
+  .navbar-logo {
+      font-size: 1.5rem; /* Ukuran font logo dikecilkan */
+  }
+
+  /* MENU SAMPING (Saat burger diklik) */
+  .navbar .navbar-nav {
+    position: absolute; 
+    top: 100%; 
+    right: -100%; /* Sembunyi di kanan */
+    background-color: #fff; /* Background putih bersih */
+    width: 65%; /* Lebar menu 65% layar, jangan full */
+    height: 100vh;
+    transition: 0.3s; 
+    display: flex; 
+    flex-direction: column; 
+    padding: 2rem;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.3); /* Bayangan */
+  }
+
+  .navbar .navbar-nav.active { 
+      right: 0; /* Munculkan menu */
+  }
+
+  .navbar .navbar-nav a { 
+      color: #333; /* Warna teks menu hitam */
+      display: block; 
+      margin: 1.5rem 0; 
+      font-size: 1.2rem; 
+      border-bottom: 1px solid #eee; /* Garis bawah tipis per menu */
+      padding-bottom: 10px;
+  }
+  
+  /* Atur ulang lebar keranjang belanja di HP */
+  .shopping-cart { 
+      width: 100%; 
+  }
+
+  /* Perbaiki Katalog di HP */
+  .menu { padding: 4rem 5%; }
+  .menu h2 { font-size: 2rem; }
+  .row { gap: 1rem; }
 }
