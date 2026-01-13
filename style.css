@@ -432,3 +432,47 @@ footer .credit a { color: var(--bg); font-weight: 700; }
     cursor: pointer;
 }
 .btn-final-order:hover { background-color: #946c45; }
+
+/* Styling Footer Keranjang */
+.cart-footer {
+    padding: 1rem;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    /* Disembunyikan default, dimunculkan JS jika ada barang */
+    display: none; 
+}
+
+.cart-buttons {
+    display: flex;
+    gap: 10px; /* Jarak antar tombol */
+    margin-top: 1rem;
+}
+
+/* Tombol Tambah Pesanan (Gaya Sekunder/Outline) */
+.btn-continue {
+    flex: 1;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid var(--primary); /* Sesuaikan warna tema Anda */
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-continue:hover {
+    background-color: #eee;
+}
+
+/* Tombol Checkout (Gaya Primer/Solid) */
+.btn-checkout {
+    flex: 1;
+    padding: 10px;
+    background-color: var(--primary); /* Sesuaikan warna tema Anda */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
