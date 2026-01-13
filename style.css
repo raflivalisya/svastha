@@ -13,7 +13,10 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
+
+/* TAMBAHKAN INI */
+  overflow-x: hidden; 
+  width: 100%;
 }
 
 /* NAVBAR */
@@ -69,8 +72,20 @@ body {
 .row { display: flex; flex-wrap: wrap; margin-top: 3rem; justify-content: center; gap: 2rem; }
 
 .menu-card {
-    background: #111; border: 1px solid #333; padding: 2rem;
-    width: 300px; border-radius: 12px; text-align: center;
+    background: #111; 
+    border: 1px solid #333; 
+    padding: 2rem;
+    
+    /* UBAH BAGIAN INI */
+    width: 100%;          /* Agar menyesuaikan layar HP */
+    max-width: 350px;     /* Batas maksimal lebar kartu di Laptop/PC */
+    
+    border-radius: 12px; 
+    text-align: center;
+    
+    /* Agar tidak nempel banget saat di HP */
+    margin: 0 auto;       
+}
 }
 .menu-card-img img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
 .menu-card-title { margin: 1rem auto 0.5rem; }
@@ -191,14 +206,40 @@ footer { background-color: var(--primary); text-align: center; padding: 1rem 0; 
 footer .credit { font-size: 0.8rem; font-weight: 700; color: #010101; }
 
 /* Media Query */
+/* Media Query Mobile */
 @media (max-width: 768px) {
   #hamburger-menu { display: inline-block; }
+
   .navbar .navbar-nav {
     position: absolute; top: 100%; right: -100%;
-    background-color: #fff; width: 30rem; height: 100vh;
+    background-color: #fff; width: 60%; /* Ubah jadi 60-70% biar ga terlalu lebar */
+    height: 100vh;
     transition: 0.3s; display: flex; flex-direction: column; padding: 2rem;
+    /* Tambahkan shadow biar batasnya jelas */
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5); 
   }
+
   .navbar .navbar-nav.active { right: 0; }
-  .navbar .navbar-nav a { color: #010101; display: block; margin: 1.5rem; font-size: 2rem; }
+  
+  .navbar .navbar-nav a { 
+      color: #010101; 
+      display: block; 
+      margin: 1rem 0; /* Kurangi margin biar ga terlalu jauh */
+      font-size: 1.5rem; 
+  }
+  
   .shopping-cart { width: 100%; }
+
+  /* PERBAIKAN KATALOG DI HP */
+  .menu {
+      padding: 4rem 5%; /* Kurangi padding samping dari 7% jadi 5% */
+  }
+
+  .menu h2 {
+      font-size: 2rem; /* Kecilkan sedikit font judul */
+  }
+
+  .row {
+      gap: 1.5rem; /* Kurangi jarak antar kartu */
+  }
 }
