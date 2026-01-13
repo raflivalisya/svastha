@@ -27,14 +27,23 @@
       <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
     </div>
 
-    <div class="shopping-cart">
-      <div id="cart-items-container"></div>
-      <div class="total-section">
-        <h4>Total: <span id="total-price">Rp 0</span></h4>
-      </div>
-      <button class="btn-checkout" onclick="openCheckoutModal()">Checkout Pesanan</button>
+<div class="shopping-cart">
+    <div id="cart-items-container"></div>
+
+    <div class="cart-footer" id="cart-footer">
+        <h4 class="total">Total: <span id="total-price">Rp 0</span></h4>
+        
+        <div class="cart-buttons">
+            <button class="btn-continue" onclick="continueShopping()">
+                Tambah Pesanan
+            </button>
+            
+            <button class="btn-checkout" onclick="openCheckoutModal()">
+                Checkout
+            </button>
+        </div>
     </div>
-  </nav>
+</div>
 
   <section class="hero" id="home">
     <main class="content">
