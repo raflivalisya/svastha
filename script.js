@@ -14,7 +14,11 @@ document.querySelector('#shopping-cart-button').onclick = (e) => {
     shoppingCart.classList.toggle('active');
     e.preventDefault();
 };
-
+// Klik tombol X untuk menutup keranjang
+document.querySelector('#close-cart').onclick = (e) => {
+    shoppingCart.classList.remove('active');
+    e.preventDefault();
+};
 // === LOGIKA KERANJANG (CART) ===
 let cart = [];
 
