@@ -163,6 +163,26 @@ body {
     flex: 1; padding: 10px; background: var(--primary);
     color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
 }
+/* Styling Tombol Close (X) */
+.close-cart-icon {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    color: #333;      /* Warna hitam agar kontras dengan background putih */
+    cursor: pointer;
+    z-index: 100001;
+    transition: 0.3s;
+}
+
+.close-cart-icon:hover {
+    color: var(--primary); /* Berubah warna saat disentuh */
+    transform: scale(1.2); /* Efek membesar sedikit */
+}
+
+/* Geser isi keranjang ke bawah sedikit agar tidak menabrak tombol X */
+#cart-items-container {
+    margin-top: 4rem; /* Jarak dari atas ditambah */
+}
 
 /* MODAL */
 .modal {
