@@ -88,10 +88,19 @@ body {
 }
 
 /* SHOPPING CART SIDEBAR */
+/* SHOPPING CART SIDEBAR (DARK MODE) */
 .shopping-cart {
   position: fixed; top: 0; right: -100%; height: 100vh; width: 35rem;
-  padding: 0 1.5rem; background-color: #fff; color: #333; z-index: 99999;
+  padding: 0 1.5rem; 
+  
+  /* GANTI JADI HITAM AGAR TEKS TERLIHAT */
+  background-color: #111; 
+  color: #fff; 
+  border-left: 1px solid #333; /* Garis pemisah tipis */
+  
+  z-index: 99999;
   transition: 0.3s; display: flex; flex-direction: column;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.5);
 }
 .shopping-cart.active { right: 0; }
 
@@ -99,26 +108,38 @@ body {
 
 .cart-item {
   margin: 1rem 0; display: flex; align-items: center; gap: 1.5rem;
-  padding-bottom: 1rem; border-bottom: 1px solid #eee; position: relative;
+  padding-bottom: 1rem; 
+  border-bottom: 1px solid #333; /* Garis antar item warna gelap */
+  position: relative;
 }
 .cart-item img { height: 4rem; width: 4rem; object-fit: cover; border-radius: 50%; }
-.cart-item h3 { font-size: 1rem; }
-.cart-item .item-price { font-size: 0.9rem; }
+.cart-item h3 { font-size: 1rem; color: #fff; } /* Pastikan judul item putih */
+.cart-item .item-price { font-size: 0.9rem; color: #ccc; } /* Harga sedikit abu */
 
 /* Quantity di Cart */
 .quantity-controls { display: flex; gap: 5px; margin-top: 5px; }
-.quantity-controls button { background: #eee; padding: 2px 8px; cursor: pointer; }
-.remove-item { position: absolute; right: 0; color: red; cursor: pointer; }
+.quantity-controls button { 
+    background: #333; /* Tombol plus minus gelap */
+    color: #fff; 
+    padding: 4px 10px; 
+    cursor: pointer; 
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+.remove-item { position: absolute; right: 0; color: #ff4d4d; cursor: pointer; }
 
 /* Cart Footer */
-.cart-footer { padding: 1.5rem 0; border-top: 1px solid #ccc; display: none; margin-top: auto; }
-.cart-footer h4 { text-align: center; margin-bottom: 1rem; }
+.cart-footer { padding: 1.5rem 0; border-top: 1px solid #333; display: none; margin-top: auto; }
+.cart-footer h4 { text-align: center; margin-bottom: 1rem; color: #fff; }
+
 .cart-buttons { display: flex; gap: 1rem; }
 .btn-continue {
     flex: 1; padding: 10px; background: transparent;
     border: 1px solid var(--primary); color: var(--primary);
     border-radius: 5px; cursor: pointer; font-weight: bold;
 }
+.btn-continue:hover { background: var(--primary); color: #fff; }
+
 .btn-checkout {
     flex: 1; padding: 10px; background: var(--primary);
     color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
