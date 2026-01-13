@@ -145,7 +145,7 @@ function processFinalOrder() {
     const sosmed = document.getElementById('c-sosmed').value;
 
     // --- NOMOR WA ADMIN (GANTI DISINI) ---
-    const nomorWA = "628583548908"; 
+    const nomorWA = "6285835484908"; 
     
     // Susun Pesan
     let pesan = `Halo Admin Svastha Outdoor, saya mau sewa:%0A%0A`;
