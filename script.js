@@ -1,44 +1,54 @@
-// Toggle Navbar & Cart (Sama seperti sebelumnya)
+// Toggle Navbar
 const navbarNav = document.querySelector('.navbar-nav');
 document.querySelector('#hamburger-menu').onclick = (e) => {
-  navbarNav.classList.toggle('active');
-  e.preventDefault();
-};
-const shoppingCart = document.querySelector('.shopping-cart');
-document.querySelector('#shopping-cart-button').onclick = (e) => {
-  shoppingCart.classList.toggle('active');
-  e.preventDefault();
+    navbarNav.classList.toggle('active');
+    e.preventDefault();
 };
 
-// --- LOGIKA KERANJANG (DIPERBARUI) ---
+// Toggle Shopping Cart
+const shoppingCart = document.querySelector('.shopping-cart');
+document.querySelector('#shopping-cart-button').onclick = (e) => {
+    shoppingCart.classList.toggle('active');
+    e.preventDefault();
+};
+
+// --- LOGIKA KERANJANG (DIPERBARUI & STABIL) ---
 
 let cart = [];
 
 // Fungsi Tambah Barang
-function addToCart(baseId, name, price, image, sizeElementId) {
+function addToCart(baseId, name, price, image, sizeElementId = null) {
     let finalName = name;
-    let finalId = baseId;
+    
+    // PENTING: Paksa ID menjadi String agar konsisten saat dibandingkan nanti
+    let finalId = String(baseId); 
 
     // 1. Cek apakah produk ini butuh ukuran?
     if (sizeElementId) {
-        const sizeValue = document.getElementById(sizeElementId).value;
-        if (!sizeValue) {
-            alert("Harap pilih ukuran terlebih dahulu!");
-            return;
+        const sizeSelect = document.getElementById(sizeElementId);
+        // Pastikan elemen select ditemukan untuk menghindari error
+        if (sizeSelect) {
+            const sizeValue = sizeSelect.value;
+            if (!sizeValue || sizeValue === "") {
+                alert("Harap pilih ukuran terlebih dahulu!");
+                return;
+            }
+            // UPDATE: Gabungkan ID + Ukuran (Contoh: "101-L")
+            finalName = `${name} (${sizeValue})`; // Tampilan nama lebih rapi
+            finalId = `${baseId}-${sizeValue}`;   // ID Unik
         }
-        // Tambahkan info size ke nama & ID agar unik
-        finalName = `${name} (Size: ${sizeValue})`;
-        finalId = `${baseId}-${sizeValue}`; 
     }
 
-    // 2. Cek apakah barang (dengan size sama) sudah ada di cart?
+    // 2. Cek apakah barang (dengan ID unik ini) sudah ada di cart?
     const existingItem = cart.find((item) => item.id === finalId);
 
     if (existingItem) {
+        // Jika ID Unik sama (Barang sama & Ukuran sama) -> Tambah Qty
         existingItem.quantity++;
     } else {
+        // Jika belum ada -> Item Baru
         cart.push({
-            id: finalId,
+            id: finalId, // Disimpan sebagai String
             name: finalName,
             price: price,
             image: image,
@@ -47,6 +57,8 @@ function addToCart(baseId, name, price, image, sizeElementId) {
     }
 
     updateCartUI();
+    
+    // Otomatis buka sidebar keranjang saat tambah barang
     if(!shoppingCart.classList.contains('active')) {
         shoppingCart.classList.add('active');
     }
@@ -62,20 +74,23 @@ function updateCartUI() {
     let totalPrice = 0;
     let totalCount = 0;
 
+    // Jika Kosong
     if (cart.length === 0) {
-        cartContainer.innerHTML = '<p style="text-align:center; margin-top:2rem;">Keranjang kosong.</p>';
+        cartContainer.innerHTML = '<p style="text-align:center; margin-top:2rem; color:#666;">Keranjang kosong.</p>';
         countBadge.style.display = 'none';
         totalElement.innerText = 'Rp 0';
         return;
     }
 
+    // Loop Item
     cart.forEach((item) => {
         totalPrice += item.price * item.quantity;
         totalCount += item.quantity;
 
         const itemElement = document.createElement('div');
         itemElement.classList.add('cart-item');
-        // ID string perlu dikutip agar fungsi JS jalan
+        
+        // Perhatikan tanda kutip '' pada onclick agar String ID terbaca benar
         itemElement.innerHTML = `
             <img src="${item.image}" alt="${item.name}">
             <div class="cart-item-detail">
@@ -94,7 +109,11 @@ function updateCartUI() {
         cartContainer.appendChild(itemElement);
     });
 
-    feather.replace();
+    // Render Icon Feather (Trash icon)
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+    
     totalElement.innerText = 'Rp ' + totalPrice.toLocaleString('id-ID');
     countBadge.innerText = totalCount;
     countBadge.style.display = 'block';
@@ -102,10 +121,16 @@ function updateCartUI() {
 
 // Helper Functions
 function changeQuantity(id, change) {
+    // Cari index berdasarkan String ID
     const itemIndex = cart.findIndex((item) => item.id === id);
+    
     if (itemIndex !== -1) {
         cart[itemIndex].quantity += change;
-        if (cart[itemIndex].quantity === 0) cart.splice(itemIndex, 1);
+        
+        // Hapus jika qty jadi 0
+        if (cart[itemIndex].quantity < 1) {
+            cart.splice(itemIndex, 1);
+        }
         updateCartUI();
     }
 }
@@ -115,28 +140,24 @@ function removeItem(id) {
     updateCartUI();
 }
 
-// --- LOGIKA MODAL & CHECKOUT ---
+// --- LOGIKA MODAL & CHECKOUT (WA) ---
 
 const modal = document.getElementById("checkout-modal");
 
-// 1. Buka Modal saat tombol di keranjang diklik
 function openCheckoutModal() {
     if (cart.length === 0) {
         alert("Keranjang belanja kosong!");
         return;
     }
     modal.style.display = "block";
-    shoppingCart.classList.remove('active'); // Tutup sidebar
+    shoppingCart.classList.remove('active'); 
 }
 
-// 2. Tutup Modal
 function closeCheckoutModal() {
     modal.style.display = "none";
 }
 
-// 3. PROSES FINAL (Kirim ke WA)
 function processFinalOrder() {
-    // Ambil data dari Form
     const nama = document.getElementById('c-nama').value;
     const tempat = document.getElementById('c-tempat').value;
     const tanggal = document.getElementById('c-tanggal').value;
@@ -144,13 +165,17 @@ function processFinalOrder() {
     const alamat = document.getElementById('c-alamat').value;
     const sosmed = document.getElementById('c-sosmed').value;
 
-    // --- NOMOR WA ADMIN (GANTI DISINI) ---
+    // --- NOMOR WA ADMIN ---
     const nomorWA = "6285835484908"; 
     
-    // Susun Pesan
+    // Validasi Form Sederhana
+    if(!nama || !tanggal) {
+        alert("Mohon lengkapi Nama dan Tanggal Sewa");
+        return;
+    }
+
     let pesan = `Halo Admin Svastha Outdoor, saya mau sewa:%0A%0A`;
     
-    // Header Data Diri
     pesan += `*DATA PENYEWA*%0A`;
     pesan += `Nama: ${nama}%0A`;
     pesan += `Tempat Ambil: ${tempat}%0A`;
@@ -159,32 +184,27 @@ function processFinalOrder() {
     pesan += `Alamat: ${alamat}%0A`;
     pesan += `Sosmed: ${sosmed}%0A%0A`;
 
-    // Daftar Barang
     pesan += `*BARANG YANG DISEWA*%0A`;
     let totalBayar = 0;
     cart.forEach((item, index) => {
         let subtotal = item.price * item.quantity;
         totalBayar += subtotal;
+        // item.name sudah mengandung info Size (misal: Tenda A (Size L))
         pesan += `${index+1}. ${item.name} (x${item.quantity})%0A`;
     });
 
-    // Footer & Pembayaran
     pesan += `%0A*Total: Rp ${totalBayar.toLocaleString('id-ID')}*%0A`;
     pesan += `--------------------------------%0A`;
     pesan += `*PEMBAYARAN*%0A`;
     pesan += `Via SeaBank: 901692635388%0A`;
     pesan += `Status: Siap DP Booking 50%`;
 
-    // Kirim
     window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank');
     
-    // Reset Cart & Tutup Modal (Optional)
-    // cart = []; 
-    // updateCartUI();
     closeCheckoutModal();
 }
 
-// Klik di luar modal untuk menutup
+// Klik luar modal
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
