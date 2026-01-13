@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Svastha Outdoor - Rental Alat</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="#" class="navbar-logo">Svastha<span>Outdoor</span>.</a>
+    <div class="navbar-nav">
+      <a href="#home">Home</a>
+      <a href="#menu">Katalog</a>
+      <a href="#contact">Kontak</a>
+    </div>
+    <div class="navbar-extra">
+      <a href="#" id="shopping-cart-button">
+        <i data-feather="shopping-cart"></i>
+        <span class="quantity-badge" id="cart-count">0</span>
+      </a>
+      <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+    </div>
+
+    <div class="shopping-cart">
+      <div id="cart-items-container"></div>
+      <div class="total-section">
+        <h4>Total: <span id="total-price">Rp 0</span></h4>
+      </div>
+      <button class="btn-checkout" onclick="openCheckoutModal()">Checkout Pesanan</button>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <main class="content">
+      <h1>Sewa Alat Outdoor <span>Lampung</span></h1>
+      <p>Lengkap, Bersih, dan Terpercaya.</p>
+      <a href="#menu" class="cta">Lihat Katalog</a>
+    </main>
+  </section>
+
+  <section id="menu" class="menu">
+    <h2><span>Katalog</span> Alat</h2>
+    <p>Pilih alat dan ukuran yang sesuai kebutuhanmu.</p>
+
+    <div class="row">
+      
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="img/paket.jpeg" alt="Paket Tektok">
+        </div>
+        <h3 class="menu-card-title">Paket Tektok</h3>
+        <p class="menu-card-price">Rp 50.000</p>
+        
+        <select id="size-tektok" class="size-select">
+            <option value="">Pilih Ukuran Sepatu</option>
+            <option value="37">Size 37</option>
+            <option value="38">Size 38</option>
+            <option value="39">Size 39</option>
+            <option value="40">Size 40</option>
+            <option value="41">Size 41</option>
+            <option value="42">Size 42</option>
+        </select>
+
+        <a href="#" class="btn-sewa" onclick="addToCart('tektok', 'Paket Tektok', 50000, 'img/paket.jpeg', 'size-tektok')">
+            Tambah
+        </a>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+            <img src="img/sepatu.jpeg" alt="Sepatu Rubtrack">
+        </div>
+        <h3 class="menu-card-title">Sepatu Rubtrack</h3>
+        <p class="menu-card-price">Rp 30.000</p>
+
+        <select id="size-sepatu" class="size-select">
+            <option value="">Pilih Ukuran</option>
+            <option value="37">Size 37</option>
+            <option value="38">Size 38</option>
+            <option value="39">Size 39</option>
+            <option value="40">Size 40</option>
+            <option value="41">Size 41</option>
+            <option value="42">Size 42</option>
+        </select>
+
+        <a href="#" class="btn-sewa" onclick="addToCart('sepatu', 'Sepatu Rubtrack', 30000, 'img/sepatu.jpeg', 'size-sepatu')">
+            Tambah
+        </a>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+            <img src="img/dp.jpeg" alt="Consina Venial">
+        </div>
+        <h3 class="menu-card-title">Consina Venial 30L</h3>
+        <p class="menu-card-price">Rp 50.000</p>
+        <a href="#" class="btn-sewa" onclick="addToCart('daypack', 'Consina Venial 30L', 50000, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=100', null)">
+            Tambah
+        </a>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+            <img src="img/hydropack.jpeg" alt="Hydropack Boogaaboo">
+        </div>
+        <h3 class="menu-card-title">Hydropack Boogaaboo</h3>
+        <p class="menu-card-price">Rp 15.000</p>
+        <a href="#" class="btn-sewa" onclick="addToCart('hydro', 'Hydropack Boogaaboo', 15000, 'https://images.unsplash.com/photo-1588612509890-a7d510eb38c6?q=80&w=100', null)">
+            Tambah
+        </a>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="img/tp.jpeg" alt="Tracking Pole">
+        </div>
+        <h3 class="menu-card-title">Tracking Pole</h3>
+        <p class="menu-card-price">Rp 10.000</p>
+        <a href="#" class="btn-sewa" onclick="addToCart('tpole', 'Tracking Pole Biasa', 10000, 'https://images.unsplash.com/photo-1506197061617-7f5c0b093236?q=80&w=100', null)">
+            Tambah
+        </a>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="img/headlamp.jpeg" alt="Headlamp Aoki">
+        </div>
+        <h3 class="menu-card-title">Headlamp Aoki</h3>
+        <p class="menu-card-price">Rp 5.000</p>
+        <a href="#" class="btn-sewa" onclick="addToCart('hlamp', 'Headlamp Aoki', 5000, 'https://images.unsplash.com/photo-1542359570-84c4714150db?q=80&w=100', null)">
+            Tambah
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="checkout-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeCheckoutModal()">×</span>
+      <h2>Data Penyewa</h2>
+      <form id="checkout-form" onsubmit="event.preventDefault(); processFinalOrder();">
+        
+        <label>Nama Penyewa</label>
+        <input type="text" id="c-nama" required placeholder="Nama Lengkap">
+        
+        <label>Tempat Pengambilan</label>
+        <select id="c-tempat" required>
+            <option value="Kemiling">Kemiling</option>
+            <option value="Natar">Natar</option>
+        </select>
+        
+        <div class="form-row">
+            <div>
+                <label>Tanggal Ambil</label>
+                <input type="date" id="c-tanggal" required>
+            </div>
+            <div>
+                <label>Jam Ambil</label>
+                <input type="time" id="c-jam" required>
+            </div>
+        </div>
+
+        <label>Alamat Penyewa</label>
+        <textarea id="c-alamat" required placeholder="Alamat Lengkap"></textarea>
+
+        <label>Sosmed Aktif (IG/FB)</label>
+        <input type="text" id="c-sosmed" required placeholder="@username">
+
+        <div class="payment-info">
+            <p><strong>Info Pembayaran:</strong></p>
+            <p>SeaBank: 901692635388</p>
+            <p>(Wajib DP Booking 50%)</p>
+        </div>
+
+        <button type="submit" class="btn-final-order">Kirim Pesanan ke WA</button>
+      </form>
+    </div>
+  </div>
+
+  <section id="contact" class="contact">
+    <h2><span>Kontak</span> Kami</h2>
+    <div class="row">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127050.2862578583!2d105.18437346249999!3d-5.4293092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40db244ba07e85%3A0x62955d9111c1d803!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1675765675547!5m2!1sid!2sid" class="map"></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <div class="credit">
+      <p>Created by Svastha Outdoor | © 2025</p>
+    </div>
+  </footer>
+
+  <script>feather.replace()</script>
+  <script src="script.js"></script>
+</body>
+</html>
